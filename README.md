@@ -36,23 +36,28 @@ Given an Arabic medical lecture audio recording and its accompanying PowerPoint 
 4. **Rigorous Application of Standards:** While generating the final JSON outputs, strictly enforce all rules in "The Standards."
 5. **Final Assembly:** Assemble the final response, ensuring it contains _only_ the four sections specified in "The Outcome," in the exact required order and format.
 ## The Outcome
+### Sections
 NEVER output anything except these four sections:
-- **High-Yield Items**: A list of identified important concepts, each with its `Sign:`, `Context:`, and the crystallized `Question:` or `Summary:`.
-- **Excluded Items**: A list of identified excluded topics, each with its `Sign:`, `Context:`, and the `Excluded:` topic.
-- **Generated MCQs**: A JSON array of objects. Each object **must** follow this precise format:
-  ```json
+#### High-Yield Items
+A list of identified important concepts, each with its `Sign:`, `Context:`, and the crystallized `Question:` or `Summary:`.
+#### Excluded Items
+A list of identified excluded topics, each with its `Sign:`, `Context:`, and the `Excluded:` topic.
+#### Generated MCQs
+A JSON array of objects. Each object **must** follow this precise format:
+```json
 {
   "text": "question content",
   "options": ["option1", "option2", "option3"],
   "correctOptionIndex":  0
 }
 ```
-	- `text` **must** be clean, with no leading/trailing whitespace.
-	- `options` must be an array of strings. Any prefixes (e.g., 'a)', 'b)') **must be removed**.
-	- `text` and `options` **must** be plain-text (never contain LaTeX or markdown).
-	- `correctOptionIndex` **must** be the zero-based integer index of the correct answer in the `options` array.
-- **Generated Written Qs**: A JSON array of objects. Each object **must** follow this precise format:
-  ```json
+- `text` **must** be clean, with no leading/trailing whitespace.
+- `options` must be an array of strings. Any prefixes (e.g., 'a)', 'b)') **must be removed**.
+- `text` and `options` **must** be plain-text (never contain LaTeX or markdown).
+- `correctOptionIndex` **must** be the zero-based integer index of the correct answer in the `options` array.
+#### Generated Written Qs
+A JSON array of objects. Each object **must** follow this precise format:
+```json
 {
   "subQuestions": [
 	{
@@ -66,17 +71,17 @@ NEVER output anything except these four sections:
   ],
   "tapes": [],
   "masks": []
-},
+}
 ```
-	- Grouping Logic: a Question Group represents an object containing `subQuestions`, `tapes`, and `masks`.
-		- Cases (i.e., `[Case]`): Each case **must** be in its own, separate Question Group.
-		- Any other question type (e.g., `[Enumerate]`, `[Define]`): Group all questions of the same type into a single Question Group.
-	- `subQuestions`:
-		- The `text` of the **first** sub-question in each group **must** begin with the question type in brackets.
-		- The `text` of all subsequent sub-questions in the _same_ group **must not** contain any prefix or question type indicator (instead of "Enumerate predisposing factors…" just "Predisposing factors…").
-		- `text`  **must** be plain-text (never contain LaTeX or markdown).
-		- `answer` **must** be output as HTML but don't wrap it with `<html></html>`.
-	- `tapes` and `masks` **must** be included as empty arrays `[]`.
+- Grouping Logic: a Question Group represents an object containing `subQuestions`, `tapes`, and `masks`.
+	- Cases (i.e., `[Case]`): Each case **must** be in its own, separate Question Group.
+	- Any other question type (e.g., `[Enumerate]`, `[Define]`): Group all questions of the same type into a single Question Group.
+- `subQuestions`:
+	- The `text` of the **first** sub-question in each group **must** begin with the question type in brackets.
+	- The `text` of all subsequent sub-questions in the _same_ group **must not** contain any prefix or question type indicator (instead of "Enumerate predisposing factors…" just "Predisposing factors…").
+	- `text`  **must** be plain-text (never contain LaTeX or markdown).
+	- `answer` **must** be output as HTML but don't wrap it with `<html></html>`.
+- `tapes` and `masks` **must** be included as empty arrays `[]`.
 ### Example:
 ```
 ## High-Yield Items
