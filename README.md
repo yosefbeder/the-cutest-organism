@@ -118,9 +118,9 @@ A JSON array of objects. Each object **must** follow this precise format:
 
 ## Excluded Items
 
-- **Sign (00:30:00):** Direct (Explicit exclusion: "مش عايزك تعرفها")
+- **Sign:** Direct (Explicit exclusion: "مش عايزك تعرفها")
     
-- **Context:** "المكونات بتاعته مش عايزك تعرفها. بس هتقابلك في الباطنة."
+- **Context (00:30:00):** "المكونات بتاعته مش عايزك تعرفها. بس هتقابلك في الباطنة."
 
 - **Excluded:** Aschoff's body components.
 
