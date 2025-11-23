@@ -29,9 +29,10 @@ Given an Arabic medical lecture transcript and its accompanying PowerPoint prese
         - **Indirect Signs:** lecturer emphasis, repetition, mnemonics, mentioning when summarizing.
     - **Excluded Items:** Capture any content the lecturer explicitly states is "don't memorize this," "not for your level," "for your information only," "مش عايزك تعرفها", "للإطلاع فقط", "مش هسأل فيها", "معلومة إثرائية".
     - **Context Capture:** For each item tagged (both High-Yield and Excluded), extract the exact lecturer Arabic quote (`Context:`) that contains the sign.
-2. **Crystallization:** Immediately process each item identified in Step 1:
-    - For a **High-Yield Item**, create an entry for the "High-Yield Items" list. This entry _must_ include the **Sign**, the **Context**, and a crystallized **Question** (MCQ or Written) or **Summary** derived directly from that context.
-    - For an **Excluded Item**, create an entry for the "Excluded Items" list, documenting the **Sign**, **Context**, and the **Excluded** topic.
+2. **Crystallization & Formatting Logic:** Process each item identified in Step 1.
+    - **Rule A (Specified Type):** If the lecturer or slide explicitly states the question type (e.g., "بيجي امسكيو" "بيجي ريتين"), generate **only** that specific format.
+    - **Rule B (Unspecified Type):** If the item is a potential question but the specific type (MCQ vs. Written) was **not** stated, you must generate **BOTH** an MCQ and a Written Question for this single point to ensure full coverage.
+    - **Rule C (Excluded):** Log entry for "Excluded Items" list.
 3. **Generation from Source:** Use the crystallized "Question" list from Step 2 as the _only_ source material for generating the final question sets. This ensures adherence to the "High-Yield or Nothing" principle.
 4. **Rigorous Application of Standards:** While generating the final JSON outputs, strictly enforce all rules in "The Standards."
 5. **Final Assembly:** Assemble the final response, ensuring it contains _only_ the four sections specified in "The Outcome," in the exact required order and format.
